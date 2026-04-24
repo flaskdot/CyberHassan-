@@ -121,16 +121,28 @@
             document.getElementById('uptime').innerText = `UPTIME: ${h}:${m}:${s}`;
         }, 1000);
 
-        // Fake Scanner Logic
-        function startScan() {
-            let res = document.getElementById('scanResult');
-            let url = document.getElementById('urlInput').value;
-            if(!url) return alert("يرجى إدخال رابط!");
-            res.innerHTML = "<span style='color: yellow;'>جاري فحص الرابط في قاعدة بياناتنا...</span>";
-            setTimeout(() => {
-                res.innerHTML = "<span style='color: #00ff00;'>الرابط آمن ظاهرياً، ولكن احذر من إدخال بياناتك الشخصية فيه.</span>";
-            }, 3000);
+function startScan() {
+    let res = document.getElementById('scanResult');
+    let url = document.getElementById('urlInput').value.toLowerCase();
+    
+    if(!url) return alert("يرجى إدخال رابط!");
+
+    res.innerHTML = "<span style='color: yellow;'>[SYSTEM] جاري تحليل الرابط ومطابقته مع قاعدة بيانات الثغرات...</span>";
+
+    setTimeout(() => {
+        // قائمة ببعض الكلمات التي تستخدم عادة في الروابط المشبوهة
+        const suspiciousWords = ['login', 'sign-in', 'free', 'gift', 'win', 'prize', 'hacked', 'verification'];
+        let isSuspicious = suspiciousWords.some(word => url.includes(word));
+
+        if (!url.startsWith('https://')) {
+            res.innerHTML = "<span style='color: #ff0000; font-weight: bold;'>[تحذير] الرابط غير مشفر (HTTP) وقد يكون خطيراً جداً لتسريب البيانات!</span>";
+        } else if (isSuspicious) {
+            res.innerHTML = "<span style='color: #ffaa00; font-weight: bold;'>[تنبيه] تم اكتشاف كلمات مشبوهة في الرابط. يرجى الحذر من إدخال أي معلومات شخصية.</span>";
+        } else {
+            res.innerHTML = "<span style='color: #00ff00;'>[آمن] الرابط يبدو طبيعياً، ولكن لا تثق بأي صفحة تطلب منك كلمة المرور.</span>";
         }
+    }, 2500);
+}
 
         // Live logs simulation
         const logs = ["Connecting to proxy...", "Scanning for vulnerabilities...", "User session encrypted...", "Database link established...", "Bypassing firewalls..."];
