@@ -6,100 +6,99 @@
     <title>CyberHassan | Security Console</title>
     <style>
         body {
-            background-color: #050505;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
+            background-color: #000;
             margin: 0;
             padding: 0;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        /* خلفية الماتريكس */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
 
         .console-container {
             width: 90%;
-            max-width: 1000px;
-            background-color: rgba(10, 10, 10, 0.95);
+            max-width: 900px;
+            background-color: rgba(0, 0, 0, 0.85);
             border: 2px solid #0044cc;
-            box-shadow: 0 0 30px rgba(0, 70, 255, 0.4);
-            border-radius: 5px;
+            box-shadow: 0 0 40px rgba(0, 70, 255, 0.5);
+            border-radius: 10px;
             padding: 30px;
             text-align: center;
             position: relative;
+            backdrop-filter: blur(5px);
         }
 
         h1.brand-name {
             color: #ff0000;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            font-size: 3em;
-            margin-bottom: 5px;
-            text-shadow: 0 0 15px #ff0000;
+            letter-spacing: 8px;
+            font-size: 3.5em;
+            margin: 0;
+            text-shadow: 0 0 20px #ff0000;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { text-shadow: 0 0 10px #ff0000; }
-            50% { text-shadow: 0 0 25px #ff0000, 0 0 10px #ffffff; }
-            100% { text-shadow: 0 0 10px #ff0000; }
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.8; }
         }
 
         .subtitle {
             color: #00cccc;
-            font-size: 1.1em;
-            margin-bottom: 25px;
             font-weight: bold;
+            margin-bottom: 20px;
         }
 
         .system-logs {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            font-size: 0.85em;
-            opacity: 0.8;
+            justify-content: space-around;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            color: #00ff00;
             margin-bottom: 20px;
             direction: ltr;
         }
 
         .status-text {
             color: #00ff00;
-            margin: 10px 0;
             display: block;
+            margin: 10px 0;
             font-size: 1.1em;
+            text-shadow: 0 0 5px #00ff00;
         }
 
-        /* زر الطلب الرئيسي - تم ربطه بالانستقرام */
+        /* أزرار التواصل */
         .action-btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 15px 40px;
-            background: transparent;
-            border: 2px solid #ff0000;
-            color: #ff0000;
-            font-size: 1.3em;
+            margin: 20px 0;
+            padding: 15px 45px;
+            background: #ff0000;
+            color: #000;
+            font-size: 1.4em;
             font-weight: bold;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+            border: none;
+            box-shadow: 0 0 20px #ff0000;
+            transition: 0.3s;
             cursor: pointer;
         }
 
         .action-btn:hover {
-            background-color: #ff0000;
-            color: #000;
-            box-shadow: 0 0 30px #ff0000;
-            transform: scale(1.05);
-        }
-
-        .social-note {
-            margin-top: 30px;
-            color: #ffffff;
-            font-size: 1em;
-            letter-spacing: 1px;
-            font-weight: bold;
+            background: #fff;
+            box-shadow: 0 0 40px #fff;
+            transform: translateY(-3px);
         }
 
         .social-buttons {
@@ -107,59 +106,48 @@
             justify-content: center;
             gap: 15px;
             margin-top: 15px;
-            flex-wrap: wrap;
         }
 
         .btn-social {
-            padding: 10px 25px;
+            padding: 8px 15px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9em;
             border-radius: 3px;
-            transition: 0.3s;
+            font-size: 0.85em;
         }
 
-        .btn-tg {
-            border: 1px solid #0088cc;
-            color: #0088cc;
+        .btn-tg { border: 1px solid #0088cc; color: #0088cc; }
+        .btn-ig { border: 1px solid #e1306c; color: #e1306c; }
+
+        /* شريط النصائح المتغيرة */
+        .security-tip {
+            margin-top: 30px;
+            padding: 10px;
+            border-top: 1px solid #333;
+            color: #ffaa00;
+            font-size: 0.9em;
+            font-style: italic;
         }
 
-        .btn-tg:hover {
-            background: #0088cc;
-            color: white;
-            box-shadow: 0 0 15px #0088cc;
-        }
-
-        .btn-ig {
-            border: 1px solid #e1306c;
-            color: #e1306c;
-        }
-
-        .btn-ig:hover {
-            background: #e1306c;
-            color: white;
-            box-shadow: 0 0 15px #e1306c;
-        }
-
-        hr {
-            border: 1px solid #0044cc;
-            margin: 20px 0;
-            opacity: 0.5;
+        .warning-footer {
+            margin-top: 20px;
+            font-size: 0.7em;
+            color: #444;
         }
     </style>
 </head>
 <body>
 
+    <canvas id="matrix-canvas"></canvas>
+
     <div class="console-container">
-        <h1 class="brand-name">> CYBERHASSAN <</h1>
+        <h1 class="brand-name">CYBERHASSAN</h1>
         <div class="subtitle">جاهزون لخدمتكم على مدار الساعة التواصل عبر انستغرام او تيليجرام</div>
         
-        <hr>
-
         <div class="system-logs">
-            <span>> Initializing secure connection...</span>
-            <span>> System Status: <span style="color: #ff0000; font-weight: bold;">STABLE</span></span>
-            <span>> Encryption: AES-256 Enabled.</span>
+            <span id="threat-count">> Threats Blocked: 1,432</span>
+            <span>> Server: <span style="color:#ff0000">Active</span></span>
+            <span id="user-count">> Encrypted Tunnels: 7</span>
         </div>
 
         <div class="content-area">
@@ -168,27 +156,77 @@
             <span class="status-text">> فريقنا جاهز للتدخل وتحليل الحالة وسد الثغرات تواصل معنا عبر الخاص.</span>
         </div>
 
-        <a href="https://www.instagram.com/ha77an_x220" target="_blank" class="action-btn">
+        <a href="https://www.instagram.com/ha77an_x220" target="_blank" class="action-btn" onclick="playBeep()">
             SUBMIT EMERGENCY REQUEST [!]
         </a>
 
-        <div class="social-note">
-            Send an urgent request via Telegram or via Instagram
-        </div>
-
         <div class="social-buttons">
-            <a href="https://t.me/EngHassanBMohra" target="_blank" class="btn-social btn-tg">
-                Telegram: @EngHassanBMohra
-            </a>
-            <a href="https://www.instagram.com/ha77an_x220" target="_blank" class="btn-social btn-ig">
-                Instagram: ha77an_x220
-            </a>
+            <a href="https://t.me/EngHassanBMohra" target="_blank" class="btn-social btn-tg">Telegram: @EngHassanBMohra</a>
+            <a href="https://www.instagram.com/ha77an_x220" target="_blank" class="btn-social btn-ig">Instagram: ha77an_x220</a>
         </div>
 
-        <div style="margin-top: 40px; font-size: 0.75em; color: #333; letter-spacing: 2px;">
-            TERMINAL ID: CH-99X | ENCRYPTED SESSION
+        <div class="security-tip" id="tip-text">
+            نصيحة أمنية: لا تفتح الروابط المجهولة التي تصلك عبر الخاص أبداً.
+        </div>
+
+        <div class="warning-footer">
+            هذا الموقع مخصص للمساعدة في مكافحة الابتزاز والاختراق فقط. الاستخدام غير القانوني يعرضك للمساءلة.
         </div>
     </div>
 
+    <script>
+        // كود الماتريكس
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        for (let i = 0; i < columns; i++) drops[i] = 1;
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#003300"; // لون اخضر غامق جدا للرموز
+            ctx.font = fontSize + "px arial";
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 33);
+
+        // تغيير النصائح تلقائياً
+        const tips = [
+            "نصيحة أمنية: قم بتغيير كلمات مرورك كل 3 أشهر.",
+            "نصيحة أمنية: فعل خاصية التحقق الثنائي (2FA) في جميع حساباتك.",
+            "نصيحة أمنية: لا تشارك رمز الـ OTP مع أي شخص يدعي أنه من الدعم الفني.",
+            "نصيحة أمنية: تأكد دائماً من وجود قفل الأمان HTTPS قبل إدخال بياناتك."
+        ];
+        let tipIndex = 0;
+        setInterval(() => {
+            tipIndex = (tipIndex + 1) % tips.length;
+            document.getElementById('tip-text').innerText = tips[tipIndex];
+        }, 5000);
+
+        // عداد وهمي متغير
+        setInterval(() => {
+            document.getElementById('user-count').innerText = "> Encrypted Tunnels: " + Math.floor(Math.random() * 20 + 5);
+        }, 3000);
+
+        function playBeep() {
+            const context = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = context.createOscillator();
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(440, context.currentTime);
+            osc.connect(context.destination);
+            osc.start();
+            osc.stop(context.currentTime + 0.1);
+        }
+    </script>
 </body>
 </html>
