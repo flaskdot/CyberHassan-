@@ -5,56 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberHassan | Security Console</title>
     <style>
-        /* إعدادات الخلفية العامة - ستايل الهكرز */
         body {
-            background-color: #050505; /* أسود داكن جداً */
-            color: #00ff00; /* الأخضر الأساسي للـ Terminal */
-            font-family: 'Courier New', monospace; /* خط الكود */
+            background-color: #050505;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden; /* لمنع شريط التمرير */
+            overflow: hidden;
         }
 
-        /* حاوية الموقع الرئيسية في الوسط */
         .console-container {
-            width: 80%;
-            max-width: 900px;
+            width: 90%;
+            max-width: 1000px;
             background-color: rgba(10, 10, 10, 0.95);
-            border: 2px solid #0044cc; /* حدود زرقاء داكنة */
-            box-shadow: 0 0 30px rgba(0, 70, 255, 0.4); /* توهج أزرق */
+            border: 2px solid #0044cc;
+            box-shadow: 0 0 30px rgba(0, 70, 255, 0.4);
             border-radius: 5px;
             padding: 30px;
             text-align: center;
             position: relative;
         }
 
-        /* تأثير خطوط الشاشة القديمة */
-        .console-container::before {
-            content: " ";
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-            background-size: 100% 4px;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        /* الاسم في الوسط باللون الأحمر والتوهج */
         h1.brand-name {
-            color: #ff0000; /* الأحمر */
+            color: #ff0000;
             text-transform: uppercase;
             letter-spacing: 5px;
             font-size: 3em;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             text-shadow: 0 0 15px #ff0000;
             animation: pulse 2s infinite;
         }
 
-        /* تأثير النبض للاسم */
         @keyframes pulse {
             0% { text-shadow: 0 0 10px #ff0000; }
             50% { text-shadow: 0 0 25px #ff0000, 0 0 10px #ffffff; }
@@ -62,28 +47,36 @@
         }
 
         .subtitle {
-            color: #00cccc; /* أزرق فاتح/سماوي */
-            font-size: 1.2em;
-            margin-bottom: 30px;
+            color: #00cccc;
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            font-weight: bold;
         }
 
-        /* النصوص الخضراء */
+        /* تنسيق الأسطر الخضراء لتكون بجانب بعضها (عرضي) */
+        .system-logs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.85em;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            direction: ltr; /* لجعل الرموز التقنية تظهر بشكل صحيح */
+        }
+
         .status-text {
-            color: #00ff00; /* الأخضر */
-            margin: 15px 0;
-            text-align: right;
-            border-right: 2px solid #00ff00;
-            padding-right: 10px;
-            display: inline-block;
+            color: #00ff00;
+            margin: 10px 0;
+            display: block;
+            font-size: 1.1em;
         }
 
-        /* الأزرار الاحترافية */
         .action-btn {
             display: inline-block;
-            margin-top: 40px;
+            margin-top: 30px;
             padding: 15px 30px;
             background: transparent;
-            border: 2px solid #ff0000; /* حدود حمراء */
+            border: 2px solid #ff0000;
             color: #ff0000;
             font-size: 1.2em;
             font-weight: bold;
@@ -100,49 +93,40 @@
             box-shadow: 0 0 20px #ff0000;
         }
 
-        /* تأثير الكتابة التلقائية بسيط */
-        .typing {
-            width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 3s steps(40, end);
+        hr {
+            border: 1px solid #0044cc;
+            margin: 20px 0;
+            opacity: 0.5;
         }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
     </style>
 </head>
 <body>
 
     <div class="console-container">
         <h1 class="brand-name">> CYBERHASSAN <</h1>
-        <div class="subtitle">[ وحدة الرد الرقمي السريع ]</div>
         
-        <hr style="border: 1px solid #0044cc; margin: 20px 0;">
+        <div class="subtitle">جاهزون لخدمتكم على مدار الساعة التواصل عبر انستغرام او تيليجرام</div>
+        
+        <hr>
 
-        <div class="typing-container" style="text-align: right; direction: ltr; font-size: 0.9em; opacity: 0.7;">
-            <p>>Initializing secure connection...</p>
-            <p>>System Status: <span style="color: #ff0000;">STABLE</span></p>
-            <p>>Encryption: AES-256 Enabled.</p>
+        <div class="system-logs">
+            <span>> Initializing secure connection...</span>
+            <span>> System Status: <span style="color: #ff0000; font-weight: bold;">STABLE</span></span>
+            <span>> Encryption: AES-256 Enabled.</span>
         </div>
 
-        <br>
-
         <div class="content-area">
-            <p class="status-text">> أهلاً بك في المنطقة الآمنة.</p><br>
-            <p class="status-text">> إذا كنت تتعرض لابتزاز، اختراق، أو تهديد رقمي، فأنت في المكان الصحيح.</p><br>
-            <p class="status-text">> فريقنا جاهز للتدخل وتحليل الحالة وسد الثغرات.</p>
+            <span class="status-text">> أهلاً بك في المنطقة الآمنة داخل سايبر حسن.</span>
+            <span class="status-text">> إذا كنت تتعرض لابتزاز، أو تهديد رقمي، فأنت في المكان الصحيح.</span>
+            <span class="status-text">> فريقنا جاهز للتدخل وتحليل الحالة وسد الثغرات تواصل معنا عبر الخاص.</span>
         </div>
 
         <a href="https://forms.gle/YOUR_GOOGLE_FORM_ID" class="action-btn" target="_blank">
             SUBMIT EMERGENCY REQUEST [!]
         </a>
 
-        <div style="margin-top: 30px; font-size: 0.8em; color: #444;">
-            © 2024 CYBERHASSAN. All rights reserved. SECURED ACCESS ONLY.
+        <div style="margin-top: 40px; font-size: 0.75em; color: #333; letter-spacing: 2px;">
+            TERMINAL ID: CH-99X | ENCRYPTED SESSION
         </div>
     </div>
 
