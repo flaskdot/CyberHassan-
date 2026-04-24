@@ -2,22 +2,22 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CyberHassan | Alpha Terminal</title>
     <style>
-        /* إعدادات الخلفية والخطوط */
+        /* إعدادات عامة لتناسب جميع الشاشات */
         body { 
             background-color: #000; 
             margin: 0; 
-            overflow: hidden; 
+            padding: 0;
+            overflow-x: hidden; 
             font-family: 'Courier New', monospace; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            height: 100vh; 
+            min-height: 100vh; 
         }
 
-        /* خلفية الماتريكس */
         #matrix-canvas { 
             position: fixed; 
             top: 0; 
@@ -26,66 +26,76 @@
             opacity: 0.15; 
         }
         
-        /* الحاوية الرئيسية */
         .console-container {
             width: 90%; 
-            max-width: 850px; 
-            background-color: rgba(5, 5, 5, 0.9);
+            max-width: 500px; /* تقليل العرض ليناسب الجوال */
+            background-color: rgba(5, 5, 5, 0.95);
             border: 1px solid #0044cc; 
-            box-shadow: 0 0 50px rgba(0, 70, 255, 0.2);
-            border-radius: 5px; 
-            padding: 25px; 
+            box-shadow: 0 0 30px rgba(0, 70, 255, 0.3);
+            border-radius: 10px; 
+            padding: 20px; 
             text-align: center; 
-            position: relative;
-            backdrop-filter: blur(5px);
+            margin: 20px auto;
         }
 
-        /* الاسم بالوسط مع تأثير نبض أحمر */
+        /* تصغير حجم الاسم ليناسب شاشة الجوال */
         .brand-name {
             color: #ff0000; 
-            font-size: 3.5em; 
-            letter-spacing: 10px; 
-            margin: 0;
-            text-shadow: 2px 2px #0044cc; 
-            position: relative; 
+            font-size: 1.8em; /* حجم أصغر للجوال */
+            letter-spacing: 5px; 
+            margin: 10px 0;
+            text-shadow: 0 0 10px #ff0000; 
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); text-shadow: 0 0 10px #ff0000; }
-            50% { transform: scale(1.02); text-shadow: 0 0 25px #ff0000; }
-            100% { transform: scale(1); text-shadow: 0 0 10px #ff0000; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
-        /* شريط الحالة الأخضر */
+        .subtitle {
+            color: #00cccc;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
         .system-status-bar {
             background: #111; 
             border: 1px solid #333; 
-            padding: 5px; 
-            margin: 15px 0;
+            padding: 8px; 
+            margin: 10px 0;
             display: flex; 
-            justify-content: space-around; 
-            font-size: 0.75em; 
+            flex-direction: column; /* جعل الحالات تحت بعضها في الجوال */
+            gap: 5px;
+            font-size: 0.7em; 
             color: #00ff00;
             direction: ltr;
         }
 
-        /* أداة فحص الروابط */
+        .content-area {
+            color: #00ff00; 
+            font-size: 0.85em; 
+            line-height: 1.6;
+            text-align: right;
+            margin: 15px 0;
+        }
+
         .scanner-box {
-            margin-top: 20px; 
-            padding: 15px; 
+            margin-top: 15px; 
+            padding: 10px; 
             border: 1px dashed #444; 
-            background: rgba(255, 0, 0, 0.05);
         }
 
         .scanner-input {
             background: #000; 
             border: 1px solid #00ff00; 
             color: #00ff00; 
-            padding: 8px;
-            width: 70%; 
-            outline: none; 
-            font-family: monospace; 
+            padding: 10px;
+            width: 90%; /* عرض كامل للجوال */
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            outline: none;
             text-align: center;
         }
 
@@ -93,67 +103,56 @@
             background: #00ff00; 
             color: #000; 
             border: none; 
-            padding: 8px 15px;
+            padding: 10px 20px;
+            width: 100%; /* زر عريض لسهولة الضغط بالإصبع */
             cursor: pointer; 
-            font-weight: bold; 
-            transition: 0.3s;
+            font-weight: bold;
         }
 
-        .scan-btn:hover { background: #fff; }
-
-        /* الأزرار الرئيسية */
         .action-btn {
-            display: inline-block; 
+            display: block; 
             margin: 20px 0; 
-            padding: 15px 50px; 
+            padding: 15px; 
             background: #ff0000;
             color: #fff; 
-            font-size: 1.2em; 
+            font-size: 1em; 
             font-weight: bold; 
             text-decoration: none;
-            box-shadow: 0 0 20px #ff0000; 
-            transition: 0.3s; 
-            border-radius: 2px;
+            box-shadow: 0 0 15px #ff0000; 
+            border-radius: 5px;
         }
 
-        .action-btn:hover { 
-            background: #fff; 
-            color: #000; 
-            box-shadow: 0 0 40px #fff; 
+        .social-buttons {
+            display: flex;
+            flex-direction: column; /* أزرار السوشيال ميديا تحت بعضها لسهولة الاستخدام */
+            gap: 10px;
         }
-
-        /* أزرار التواصل الاجتماعي */
-        .social-buttons { margin-top: 10px; }
 
         .btn-social { 
-            padding: 8px 20px; 
+            padding: 12px; 
             text-decoration: none; 
             font-weight: bold; 
-            border-radius: 3px; 
+            border-radius: 5px; 
             font-size: 0.8em; 
-            margin: 5px; 
-            display: inline-block; 
         }
 
         .btn-tg { border: 1px solid #0088cc; color: #0088cc; }
         .btn-ig { border: 1px solid #e1306c; color: #e1306c; }
 
-        /* سجل العمليات البرمجية */
         #live-logs {
-            height: 20px; 
-            font-size: 0.7em; 
+            font-size: 0.65em; 
             color: #555; 
             margin-top: 15px;
-            overflow: hidden; 
-            direction: ltr; 
-            text-align: left;
+            direction: ltr;
         }
 
-        .subtitle {
-            color: #00cccc;
-            font-size: 0.9em;
-            margin-top: 10px;
-            font-weight: bold;
+        /* تعديلات للشاشات الأكبر (الكمبيوتر) */
+        @media (min-width: 600px) {
+            .brand-name { font-size: 3em; }
+            .system-status-bar { flex-direction: row; }
+            .social-buttons { flex-direction: row; justify-content: center; }
+            .scanner-input { width: 70%; margin-bottom: 0; }
+            .scan-btn { width: auto; }
         }
     </style>
 </head>
@@ -163,8 +162,7 @@
 
     <div class="console-container">
         <h1 class="brand-name">CYBERHASSAN</h1>
-        
-        <div class="subtitle">جاهزون لخدمتكم على مدار الساعة التواصل عبر انستغرام او تيليجرام</div>
+        <div class="subtitle">جاهزون لخدمتكم على مدار الساعة<br>التواصل عبر انستغرام او تيليجرام</div>
 
         <div class="system-status-bar">
             <span>NETWORK: SECURE</span>
@@ -172,44 +170,40 @@
             <span id="uptime">UPTIME: 00:00:00</span>
         </div>
 
-        <div style="color: #00ff00; font-size: 1em; line-height: 1.6;">
+        <div class="content-area">
             <div>> أهلاً بك في المنطقة الآمنة داخل سايبر حسن.</div>
             <div>> إذا كنت تتعرض لابتزاز، أو تهديد رقمي، فأنت في المكان الصحيح.</div>
-            <div>> فريقنا جاهز للتدخل وتحليل الحالة وسد الثغرات تواصل معنا عبر الخاص.</div>
+            <div>> فريقنا جاهز للتدخل تواصل معنا عبر الخاص.</div>
         </div>
 
         <div class="scanner-box">
-            <div style="color: #fff; font-size: 0.8em; margin-bottom: 10px;">أداة فحص الروابط المشبوهة (Smart Scan)</div>
             <input type="text" id="urlInput" class="scanner-input" placeholder="ضع الرابط هنا لفحصه...">
-            <button class="scan-btn" onclick="startScan()">SCAN</button>
-            <div id="scanResult" style="margin-top: 10px; font-size: 0.8em; min-height: 20px;"></div>
+            <button class="scan-btn" onclick="startScan()">فحص الرابط</button>
+            <div id="scanResult" style="margin-top: 10px; font-size: 0.75em; min-height: 20px;"></div>
         </div>
 
-        <a href="https://www.instagram.com/ha77an_x220" target="_blank" class="action-btn">SUBMIT EMERGENCY REQUEST [!]</a>
+        <a href="https://www.instagram.com/ha77an_x220" target="_blank" class="action-btn">تقديم طلب مساعدة عاجل [!]</a>
 
-        <div style="color: #fff; font-size: 0.9em; margin-bottom: 5px;">Send an urgent request via Telegram or via Instagram</div>
+        <div style="color: #fff; font-size: 0.75em; margin-bottom: 10px;">Send an urgent request via:</div>
 
         <div class="social-buttons">
             <a href="https://t.me/EngHassanBMohra" target="_blank" class="btn-social btn-tg">Telegram: @EngHassanBMohra</a>
             <a href="https://www.instagram.com/ha77an_x220" target="_blank" class="btn-social btn-ig">Instagram: ha77an_x220</a>
         </div>
 
-        <div id="live-logs">> Initializing system...</div>
-
-        <div style="margin-top: 20px; font-size: 0.6em; color: #333;">© 2026 CYBERHASSAN PROTOCOL | VERSION 5.0</div>
+        <div id="live-logs">> System Ready...</div>
     </div>
 
     <script>
-        // كود خلفية الماتريكس
+        // Matrix Code
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        const letters = "010101"; const fontSize = 15;
+        const letters = "01"; const fontSize = 15;
         const columns = canvas.width / fontSize; const drops = [];
         for (let i = 0; i < columns; i++) drops[i] = 1;
-
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#003300"; ctx.font = fontSize + "px arial";
             for (let i = 0; i < drops.length; i++) {
                 ctx.fillText(letters[Math.floor(Math.random() * letters.length)], i * fontSize, drops[i] * fontSize);
@@ -219,7 +213,7 @@
         }
         setInterval(draw, 33);
 
-        // عداد وقت العمل
+        // Uptime
         let seconds = 0;
         setInterval(() => {
             seconds++;
@@ -229,36 +223,25 @@
             document.getElementById('uptime').innerText = `UPTIME: ${h}:${m}:${s}`;
         }, 1000);
 
-        // محرك الفحص الذكي
+        // Scanner
         function startScan() {
             let res = document.getElementById('scanResult');
             let url = document.getElementById('urlInput').value.trim().toLowerCase();
-            
-            if(!url) return alert("يرجى إدخال رابط!");
-
-            res.innerHTML = "<span style='color: yellow;'>[SYSTEM] جاري تحليل الرابط وفحص طبقات التشفير...</span>";
-
+            if(!url) return alert("أدخل الرابط!");
+            res.innerHTML = "<span style='color: yellow;'>جاري الفحص...</span>";
             setTimeout(() => {
-                const suspiciousWords = ['login', 'sign-in', 'free', 'gift', 'win', 'prize', 'hacked', 'verification', 'snapchat', 'instagram-login'];
-                const shorteners = ['bit.ly', 't.co', 'tinyurl', 'is.gd'];
-                
-                let hasBadWord = suspiciousWords.some(word => url.includes(word));
-                let isShort = shorteners.some(s => url.includes(s));
-
                 if (!url.startsWith('https://')) {
-                    res.innerHTML = "<span style='color: #ff0000; font-weight: bold;'>[خطر] الرابط غير مشفر (HTTP). قد يتم سرقة بياناتك!</span>";
-                } else if (isShort) {
-                    res.innerHTML = "<span style='color: #ffaa00; font-weight: bold;'>[تحذير] رابط مختصر مكتشف. الهكرز يستخدمونها لإخفاء صفحات التصيد.</span>";
-                } else if (hasBadWord) {
-                    res.innerHTML = "<span style='color: #ffaa00; font-weight: bold;'>[تنبيه] تم اكتشاف كلمات مريبة في الرابط. قد تكون صفحة مزورة.</span>";
+                    res.innerHTML = "<span style='color: #ff0000;'>[خطر] الرابط غير مشفر!</span>";
+                } else if (url.includes('login') || url.includes('free')) {
+                    res.innerHTML = "<span style='color: #ffaa00;'>[تحذير] الرابط مشبوه جداً!</span>";
                 } else {
-                    res.innerHTML = "<span style='color: #00ff00;'>[آمن ظاهرياً] لم يتم اكتشاف تهديد مباشر. تأكد دائماً قبل إدخال بياناتك.</span>";
+                    res.innerHTML = "<span style='color: #00ff00;'>[آمن] لم يتم العثور على تهديد.</span>";
                 }
-            }, 2000);
+            }, 1500);
         }
 
-        // سجل العمليات الحية بالأسفل
-        const logs = ["Scanning for Phishing...", "SSL Handshake: OK", "Proxy: Encrypted", "Tracing IP Source...", "Anti-Malware: Active"];
+        // Logs
+        const logs = ["Scanning...", "Proxy: OK", "Secure Session", "Tracking..."];
         setInterval(() => {
             document.getElementById('live-logs').innerText = "> " + logs[Math.floor(Math.random() * logs.length)];
         }, 3000);
