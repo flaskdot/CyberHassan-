@@ -40,15 +40,14 @@
             border: 1px solid var(--neon-blue);
             box-shadow: 0 0 30px rgba(0, 68, 204, 0.3);
             border-radius: 8px;
-            padding: 20px;
+            padding: 25px;
             box-sizing: border-box;
             margin: 20px;
         }
 
-        /* الاسم في المنتصف */
         .brand-name {
             color: var(--neon-red);
-            font-size: clamp(1.5em, 8vw, 3.5em); /* حجم مرن */
+            font-size: clamp(1.5em, 8vw, 3.5em);
             text-align: center;
             letter-spacing: clamp(5px, 2vw, 10px);
             margin: 0;
@@ -69,28 +68,28 @@
             font-weight: bold;
         }
 
-        /* شريط الحالة - يتغير من عرضي لطولي حسب الشاشة */
         .status-bar {
             background: #111;
             border: 1px solid #333;
             padding: 10px;
             display: flex;
             justify-content: space-around;
-            flex-wrap: wrap; /* يسمح بالنزول لسطر جديد في الجوال */
+            flex-wrap: wrap;
             gap: 10px;
             font-size: 0.75em;
             margin-bottom: 20px;
             direction: ltr;
         }
 
+        /* تعديل هنا: جعل النصوص في المنتصف */
         .content-area {
-            text-align: right;
+            text-align: center; /* جعل النص في الوسط */
             line-height: 1.8;
-            font-size: clamp(0.9em, 3vw, 1.1em);
-            margin-bottom: 20px;
+            font-size: clamp(0.9em, 3.5vw, 1.1em);
+            margin-bottom: 25px;
+            color: var(--neon-green);
         }
 
-        /* أداة الفحص */
         .scanner-box {
             border: 1px dashed #444;
             padding: 15px;
@@ -104,7 +103,7 @@
             border: 1px solid var(--neon-green);
             color: var(--neon-green);
             padding: 12px;
-            width: 80%;
+            width: 85%;
             margin-bottom: 10px;
             outline: none;
             text-align: center;
@@ -119,13 +118,12 @@
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
-            width: 80%;
+            width: 85%;
             max-width: 200px;
         }
 
         .scan-btn:hover { background: #fff; }
 
-        /* الأزرار */
         .main-btn {
             display: block;
             background: var(--neon-red);
@@ -150,7 +148,7 @@
         }
 
         .social-btn {
-            padding: 10px;
+            padding: 12px;
             text-decoration: none;
             text-align: center;
             font-weight: bold;
@@ -161,13 +159,13 @@
         .tg { border: 1px solid #0088cc; color: #0088cc; }
         .ig { border: 1px solid #e1306c; color: #e1306c; }
 
-        /* سجل العمليات */
         #log-display {
             font-size: 0.7em;
             color: #555;
             margin-top: 20px;
             height: 20px;
             direction: ltr;
+            text-align: center;
         }
 
         .tip-box {
@@ -210,20 +208,20 @@
 
         <a href="https://www.instagram.com/ha77an_x220" target="_blank" class="main-btn">SUBMIT EMERGENCY REQUEST [!]</a>
 
-        <div style="text-align:center; color:#fff; font-size:0.8em;">Send an urgent request via Telegram or Instagram</div>
+        <div style="text-align:center; color:#fff; font-size:0.8em; margin-bottom:10px;">Send an urgent request via Telegram or Instagram</div>
 
         <div class="social-grid">
             <a href="https://t.me/EngHassanBMohra" target="_blank" class="social-btn tg">Telegram: @EngHassanBMohra</a>
             <a href="https://www.instagram.com/ha77an_x220" target="_blank" class="social-btn ig">Instagram: ha77an_x220</a>
         </div>
 
-        <div id="log-display">> Initializing...</div>
+        <div id="log-display">> Initializing Terminal...</div>
 
         <div class="tip-box" id="tipText">
             نصيحة أمنية: لا تستخدم كلمة مرور واحدة لجميع حساباتك.
         </div>
 
-        <div style="text-align:center; font-size:0.6em; color:#222; margin-top:20px;">© 2026 CYBERHASSAN PROTOCOL | ALPHA V6.0</div>
+        <div style="text-align:center; font-size:0.6em; color:#222; margin-top:20px;">© 2026 CYBERHASSAN PROTOCOL | ALPHA V6.1</div>
     </div>
 
     <script>
@@ -266,7 +264,7 @@
         function startScan() {
             const res = document.getElementById('scanResult');
             const url = document.getElementById('urlInput').value.trim().toLowerCase();
-            if(!url) return alert("يرجى إدخال الرابط");
+            if(!url) return alert("يرجى إدخال رابط");
             res.innerHTML = "<span style='color:yellow;'>جاري التحليل...</span>";
             setTimeout(() => {
                 if(!url.startsWith('https://')) res.innerHTML = "<span style='color:red;'>[خطر] الرابط غير مشفر (HTTP)!</span>";
@@ -276,7 +274,7 @@
         }
 
         // Live Logs
-        const logs = ["Searching for XSS...", "SSL: Verified", "Proxy: Stable", "Packet Trace: OK"];
+        const logs = ["Scanning for XSS...", "SSL: Verified", "Proxy: Stable", "Packet Trace: OK", "Deep Inspection..."];
         setInterval(() => {
             document.getElementById('log-display').innerText = "> " + logs[Math.floor(Math.random()*logs.length)];
         }, 3000);
