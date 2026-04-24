@@ -14,8 +14,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .console-container {
@@ -53,15 +53,15 @@
             font-weight: bold;
         }
 
-        /* تنسيق الأسطر الخضراء لتكون بجانب بعضها (عرضي) */
         .system-logs {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 20px;
             font-size: 0.85em;
             opacity: 0.8;
             margin-bottom: 20px;
-            direction: ltr; /* لجعل الرموز التقنية تظهر بشكل صحيح */
+            direction: ltr;
         }
 
         .status-text {
@@ -71,9 +71,10 @@
             font-size: 1.1em;
         }
 
+        /* زر الطلب الرئيسي */
         .action-btn {
             display: inline-block;
-            margin-top: 30px;
+            margin-top: 20px;
             padding: 15px 30px;
             background: transparent;
             border: 2px solid #ff0000;
@@ -81,8 +82,6 @@
             font-size: 1.2em;
             font-weight: bold;
             text-decoration: none;
-            text-transform: uppercase;
-            cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
@@ -91,6 +90,54 @@
             background-color: #ff0000;
             color: #000;
             box-shadow: 0 0 20px #ff0000;
+        }
+
+        /* نص التواصل الاجتماعي */
+        .social-note {
+            margin-top: 25px;
+            color: #ffffff;
+            font-size: 1em;
+            letter-spacing: 1px;
+        }
+
+        /* حاوية أزرار التواصل */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-social {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .btn-tg {
+            border: 1px solid #0088cc;
+            color: #0088cc;
+        }
+
+        .btn-tg:hover {
+            background: #0088cc;
+            color: white;
+            box-shadow: 0 0 15px #0088cc;
+        }
+
+        .btn-ig {
+            border: 1px solid #e1306c;
+            color: #e1306c;
+        }
+
+        .btn-ig:hover {
+            background: #e1306c;
+            color: white;
+            box-shadow: 0 0 15px #e1306c;
         }
 
         hr {
@@ -104,7 +151,6 @@
 
     <div class="console-container">
         <h1 class="brand-name">> CYBERHASSAN <</h1>
-        
         <div class="subtitle">جاهزون لخدمتكم على مدار الساعة التواصل عبر انستغرام او تيليجرام</div>
         
         <hr>
@@ -121,9 +167,22 @@
             <span class="status-text">> فريقنا جاهز للتدخل وتحليل الحالة وسد الثغرات تواصل معنا عبر الخاص.</span>
         </div>
 
-        <a href="https://forms.gle/YOUR_GOOGLE_FORM_ID" class="action-btn" target="_blank">
+        <a href="https://forms.gle/YOUR_GOOGLE_FORM_ID" class="action-btn">
             SUBMIT EMERGENCY REQUEST [!]
         </a>
+
+        <div class="social-note">
+            Send an urgent request via Telegram or via Instagram
+        </div>
+
+        <div class="social-buttons">
+            <a href="https://t.me/EngHassanBMohra" target="_blank" class="btn-social btn-tg">
+                Telegram: @EngHassanBMohra
+            </a>
+            <a href="https://instagram.com/ha77an_x220" target="_blank" class="btn-social btn-ig">
+                Instagram: ha77an_x220
+            </a>
+        </div>
 
         <div style="margin-top: 40px; font-size: 0.75em; color: #333; letter-spacing: 2px;">
             TERMINAL ID: CH-99X | ENCRYPTED SESSION
