@@ -2,28 +2,149 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>CyberHassan | الأمن السيبراني</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberHassan | Security Console</title>
     <style>
-        body { background-color: #0d1117; color: #39ff14; font-family: 'Courier New', monospace; padding: 50px; }
-        .container { border: 1px solid #39ff14; padding: 20px; box-shadow: 0 0 15px #39ff14; }
-        h1 { text-shadow: 2px 2px #000; }
-        a { color: white; text-decoration: none; border: 1px solid white; padding: 5px 10px; }
-        a:hover { background: #39ff14; color: black; }
+        /* إعدادات الخلفية العامة - ستايل الهكرز */
+        body {
+            background-color: #050505; /* أسود داكن جداً */
+            color: #00ff00; /* الأخضر الأساسي للـ Terminal */
+            font-family: 'Courier New', monospace; /* خط الكود */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* لمنع شريط التمرير */
+        }
+
+        /* حاوية الموقع الرئيسية في الوسط */
+        .console-container {
+            width: 80%;
+            max-width: 900px;
+            background-color: rgba(10, 10, 10, 0.95);
+            border: 2px solid #0044cc; /* حدود زرقاء داكنة */
+            box-shadow: 0 0 30px rgba(0, 70, 255, 0.4); /* توهج أزرق */
+            border-radius: 5px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* تأثير خطوط الشاشة القديمة */
+        .console-container::before {
+            content: " ";
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* الاسم في الوسط باللون الأحمر والتوهج */
+        h1.brand-name {
+            color: #ff0000; /* الأحمر */
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #ff0000;
+            animation: pulse 2s infinite;
+        }
+
+        /* تأثير النبض للاسم */
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px #ff0000; }
+            50% { text-shadow: 0 0 25px #ff0000, 0 0 10px #ffffff; }
+            100% { text-shadow: 0 0 10px #ff0000; }
+        }
+
+        .subtitle {
+            color: #00cccc; /* أزرق فاتح/سماوي */
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        /* النصوص الخضراء */
+        .status-text {
+            color: #00ff00; /* الأخضر */
+            margin: 15px 0;
+            text-align: right;
+            border-right: 2px solid #00ff00;
+            padding-right: 10px;
+            display: inline-block;
+        }
+
+        /* الأزرار الاحترافية */
+        .action-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 30px;
+            background: transparent;
+            border: 2px solid #ff0000; /* حدود حمراء */
+            color: #ff0000;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .action-btn:hover {
+            background-color: #ff0000;
+            color: #000;
+            box-shadow: 0 0 20px #ff0000;
+        }
+
+        /* تأثير الكتابة التلقائية بسيط */
+        .typing {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: typing 3s steps(40, end);
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>> CyberHassan_</h1>
-        <p>مرحباً بك في منصة الدعم الفني للأمن الرقمي.</p>
-        <hr>
-        <h3>الخدمات:</h3>
-        <ul>
-            <li>تحليل الثغرات الأمنية</li>
-            <li>استعادة الحسابات المخترقة</li>
-            <li>تأمين المواقع والشبكات</li>
-        </ul>
+
+    <div class="console-container">
+        <h1 class="brand-name">> CYBERHASSAN <</h1>
+        <div class="subtitle">[ وحدة الرد الرقمي السريع ]</div>
+        
+        <hr style="border: 1px solid #0044cc; margin: 20px 0;">
+
+        <div class="typing-container" style="text-align: right; direction: ltr; font-size: 0.9em; opacity: 0.7;">
+            <p>>Initializing secure connection...</p>
+            <p>>System Status: <span style="color: #ff0000;">STABLE</span></p>
+            <p>>Encryption: AES-256 Enabled.</p>
+        </div>
+
         <br>
-        <a href="رابط_نموذج_جوجل_هنا">إرسال طلب مساعدة (SOS)</a>
+
+        <div class="content-area">
+            <p class="status-text">> أهلاً بك في المنطقة الآمنة.</p><br>
+            <p class="status-text">> إذا كنت تتعرض لابتزاز، اختراق، أو تهديد رقمي، فأنت في المكان الصحيح.</p><br>
+            <p class="status-text">> فريقنا جاهز للتدخل وتحليل الحالة وسد الثغرات.</p>
+        </div>
+
+        <a href="https://forms.gle/YOUR_GOOGLE_FORM_ID" class="action-btn" target="_blank">
+            SUBMIT EMERGENCY REQUEST [!]
+        </a>
+
+        <div style="margin-top: 30px; font-size: 0.8em; color: #444;">
+            © 2024 CYBERHASSAN. All rights reserved. SECURED ACCESS ONLY.
+        </div>
     </div>
+
 </body>
 </html>
